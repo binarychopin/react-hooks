@@ -1,35 +1,35 @@
 import "./App.css";
 import { ReactElement } from "react";
-
-function formatInstrumentDescription(instrument: Instrument): string {
-  return `this is a ${instrument.name} and its price is ${instrument.price}`;
-}
-
-function ConditionalRendering(
-  instrument: Instrument | null
-): ReactElement {
-  if (instrument?.price) {
-    return <h1> instrument price is {instrument?.price} </h1>;
-  } else {
-    return <h1>instrument price is undefined</h1>;
-  }
-}
-
-type Instrument = {
-  name: string ;
-  price?: number;
-};
-
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import Calculator from '../src/hooks/useState/UseState'
 function App(): ReactElement {
-  const instrument: Instrument = { name: "piano", price: 10_000 };
-  const emptyInstrument: Instrument = { name: 'guitar' };
+  return <BrowserRouter>
+    <NavBar />
+    <Switch >
+      <Route exact path='/usestate'>
+        <Calculator />
+      </Route>
+    </Switch>
+  </BrowserRouter>
+}
+function NavBar(): ReactElement {
   return (
     <div>
-      <ConditionalRendering {...instrument}/>
-      <ConditionalRendering {...emptyInstrument}/>
-      <p>welcome to my store, {formatInstrumentDescription(instrument)}</p>
+      <ul id="nav">
+        <li>
+          <Link to="/usestate">UseState</Link>
+        </li>
+        <li>
+          <a href="#">UseEffect</a>
+        </li>
+        <li>
+          <a href="#">UseContext</a>
+        </li>
+        <li>
+          <a href="#">UseRef</a>
+        </li>
+      </ul>
     </div>
   );
 }
-
 export default App;
