@@ -6,6 +6,10 @@ type TemparatureInputProps = {
   setScale: React.Dispatch<React.SetStateAction<string>>;
   temperature: number;
 };
+interface Scale {
+    [key: string]: string;
+}
+const scaleNames: Scale = {c : 'Celsius', f: 'Farenheit'};
 
 export default function Calculator() {
   const [scale, setScale] = useState('c');
@@ -45,15 +49,16 @@ function TemperatureInput({
     setTemperature(Number(e.currentTarget.value));
   };
   return (
-    <div>
-      {scale} : 
+    <>
+      <label htmlFor={scale}>{scaleNames[scale]}</label> : 
       <input
+        id={scale}
         type='number'
         value={temperature}
         onChange={handleChange}
       />
-    </div>
-  );
+    </>
+    );
 }
 
 const convertTo = (value: number, convert: Function): number => {
